@@ -19,7 +19,6 @@ object SafeCall: SafeCallInterface {
     override suspend fun <T> makeCall(block: suspend () -> Response<T>): NetworkResponse<T> {
         return try {
             val response = block()
-            Log.i("hola", response.toString())
             if (response.isSuccessful) {
                 response.body()?.let(::Success) ?: NetworkResponse.Error(NoDataException())
             } else {

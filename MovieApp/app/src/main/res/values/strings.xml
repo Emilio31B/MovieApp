@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="general_error">An error has occurred. Try again later.</string>
+    <string name="success_login">Successful login</string>
+    <string name="empty_fields_login">Fields cannot be empty</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="movie_app_title">MovieApp</string>
     <string name="sign_in_text_button">Sign In</string>
+    <string name="username_error_msg">Username cannot be empty</string>
+    <string name="password_error_msg">Password cannot be empty</string>
 </resources>
