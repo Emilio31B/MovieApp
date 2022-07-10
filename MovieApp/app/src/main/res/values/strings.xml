@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MovieApp</string>
-    <string name="general_error">Ha ocurrido un error. Inténtelo más tarde.</string>
+    <string name="general_error">An error has occurred. Try again later.</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="movie_app_title">MovieApp</string>
+    <string name="sign_in_text_button">Sign In</string>
 </resources>
