@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.movieapp.R
+import com.example.movieapp.core.utils.showToastMessage
 import com.example.movieapp.databinding.ActivityMovieBinding
 import com.example.movieapp.features.movie.domain.listmovie.ListMovieResponse
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,10 +27,7 @@ class MovieActivity : AppCompatActivity() {
 
     private fun observerLiveData() {
         viewModel.errorLD.observe(this) {
-            Toast.makeText(
-                this,
-                it.ifEmpty { getString(R.string.general_error) },
-            Toast.LENGTH_SHORT).show()
+            this.showToastMessage( it.ifEmpty { getString(R.string.general_error) } )
         }
 
         viewModel.loadingLD.observe(this) { }

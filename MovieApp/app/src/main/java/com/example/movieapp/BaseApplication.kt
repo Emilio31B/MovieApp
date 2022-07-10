@@ -3,6 +3,7 @@ package com.example.movieapp
 import android.app.Application
 import com.example.movieapp.core.infra.di.AppModule
 import com.example.movieapp.core.network.di.NetworkModule
+import com.example.movieapp.features.login.di.LoginModule
 import com.example.movieapp.features.movie.di.MovieModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -21,6 +22,7 @@ class BaseApplication: Application() {
             modules(
                 AppModule.appModule,
                 NetworkModule.module,
+                LoginModule.module,
                 MovieModule.module
             )
         }
