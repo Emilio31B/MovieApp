@@ -62,4 +62,10 @@
             android:text="@string/sign_in_text_button" />
     </LinearLayout>
 
+    <include
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/progress_container_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

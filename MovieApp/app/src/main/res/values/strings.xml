@@ -9,4 +9,8 @@
     <string name="sign_in_text_button">Sign In</string>
     <string name="username_error_msg">Username cannot be empty</string>
     <string name="password_error_msg">Password cannot be empty</string>
+    <string name="list_movie_label">List Movie</string>
+    <string name="movie_description_label">Movie Description</string>
+    <string name="no_movies_found">No Movies found</string>
+    <string name="error_list_movie">An error has occurred\nSwipe to refresh</string>
 </resources>

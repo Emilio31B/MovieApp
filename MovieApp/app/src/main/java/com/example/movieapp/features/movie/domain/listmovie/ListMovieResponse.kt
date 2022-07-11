@@ -6,7 +6,7 @@ import java.io.Serializable
 data class ListMovieResponse(
     @SerializedName("dates") val dates: Dates,
     @SerializedName("page") val page: Int,
-    @SerializedName("results") val results: List<Result>,
+    @SerializedName("results") val results: List<Movie>,
     @SerializedName("total_pages") val total_pages: Int,
     @SerializedName("total_results") val total_results: Int
 ): Serializable
@@ -16,7 +16,7 @@ data class Dates(
     @SerializedName("minimum") val minimum: String
 ): Serializable
 
-data class Result(
+data class Movie(
     @SerializedName("adult") val adult: Boolean,
     @SerializedName("backdrop_path") val backdrop_path: String,
     @SerializedName("genre_ids") val genre_ids: List<Int>,

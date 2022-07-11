@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -27,12 +28,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', '"https://api.themoviedb.org"'
+            buildConfigField 'String', 'BASE_URL_IMG', '"https://image.tmdb.org/t/p/w500/"'
             buildConfigField 'String', 'API_KEY', '"f46b58478f489737ad5a4651a4b25079"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', '"https://api.themoviedb.org"'
+            buildConfigField 'String', 'BASE_URL_IMG', '"https://image.tmdb.org/t/p/w500/"'
             buildConfigField 'String', 'API_KEY', '"f46b58478f489737ad5a4651a4b25079"'
         }
     }
@@ -83,4 +86,7 @@ dependencies {
     //koin
     implementation 'io.insert-koin:koin-android:3.1.5'
     implementation 'io.insert-koin:koin-androidx-navigation:3.1.5'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 }
