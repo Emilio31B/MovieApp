@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
@@ -45,12 +46,13 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
         setAdapter()
         observerLiveData()
         setUpSwipeToRefresh()
-        viewModel.getListMovie(1)
+        getListMovie()
+        //viewModel.getListMovie()
     }
 
     private fun setAdapter() {
         binding.listMovieRecyclerView.layoutManager = LinearLayoutManager(context)
-        movieAdapter = ListMovieAdapter(emptyList(), this)
+        movieAdapter = ListMovieAdapter(this)
 
         binding.listMovieRecyclerView.apply {
             addItemDecoration(
@@ -63,8 +65,16 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
         }
     }
 
+    private fun getListMovie() {
+        viewModel.getListMovie().observe(viewLifecycleOwner) {
+            it?.let {
+                movieAdapter.submitData(lifecycle, it)
+            }
+        }
+    }
+
     private fun observerLiveData() {
-        viewModel.errorLD.observe(viewLifecycleOwner) {
+        /*viewModel.errorLD.observe(viewLifecycleOwner) {
             context?.showToastMessage( it.ifEmpty { getString(R.string.general_error) } )
             binding.errorListMovieState.toggleVisibility(true)
             binding.listMovieRecyclerView.toggleVisibility(false)
@@ -73,9 +83,11 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
 
         viewModel.loadingLD.observe(viewLifecycleOwner) {
             binding.progress.progressContainer.toggleVisibility(it)
-        }
+        }*/
 
-        viewModel.listMovieLD.observe(viewLifecycleOwner) {
+        observerAdapter()
+
+        /*viewModel.listMovieLD.observe(viewLifecycleOwner) {
             if (it != null && it.results.isNotEmpty()) {
                 renderListMovie(it.results)
             } else {
@@ -83,17 +95,40 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
                 binding.listMovieRecyclerView.toggleVisibility(false)
                 binding.errorListMovieState.toggleVisibility(false)
             }
+        }*/
+    }
+
+    private fun observerAdapter() {
+        movieAdapter.addLoadStateListener { loadState ->
+            if(loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
+                binding.progress.progressContainer.toggleVisibility(true)
+            } else {
+                binding.progress.progressContainer.toggleVisibility(false)
+                val errorState = when {
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+
+                }
+
+                errorState?.let {
+                    context?.showToastMessage( it.error.message.toString().ifEmpty { getString(R.string.general_error) } )
+                    binding.errorListMovieState.toggleVisibility(true)
+                    binding.listMovieRecyclerView.toggleVisibility(false)
+                    binding.emptyListMovieState.toggleVisibility(false)
+                }
+            }
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifyDataSetChanged")
     private fun renderListMovie(list: List<Movie>) {
         movieAdapter.apply {
             setListMovie(list)
             notifyDataSetChanged()
         }
-
-    }
+    }*/
 
     override fun onItemMovieClickListener(movie: Movie) {
         findNavController().navigate(R.id.movieDescriptionFragment)
@@ -103,7 +138,7 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
         binding.strRoot.apply {
             setColorSchemeResources(R.color.teal_700)
             setOnRefreshListener {
-                renderListMovie(emptyList())
+                //renderListMovie(emptyList())
                 refreshListMovie()
                 lifecycleScope.launch {
                     delay(Constants.swipe_to_refresh_hide_time)
@@ -114,7 +149,8 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
     }
 
     private fun refreshListMovie() {
-        viewModel.getListMovie(1)
+        //viewModel.getListMovie()
+        getListMovie()
         binding.emptyListMovieState.toggleVisibility(false)
         binding.listMovieRecyclerView.toggleVisibility(true)
         binding.errorListMovieState.toggleVisibility(false)

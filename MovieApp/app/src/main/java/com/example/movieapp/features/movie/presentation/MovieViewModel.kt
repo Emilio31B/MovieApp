@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.movieapp.core.infra.NetworkResponse
 import com.example.movieapp.features.movie.data.IMovieRepository
 import com.example.movieapp.features.movie.domain.listmovie.ListMovieResponse
+import com.example.movieapp.features.movie.domain.listmovie.Movie
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
@@ -25,7 +28,7 @@ class MovieViewModel(
     val errorLD: LiveData<String>
         get() = errorMLD
 
-    fun getListMovie(page: Int) = viewModelScope.launch {
+    /*fun getListMovie(page: Int) = viewModelScope.launch {
         loadingMLD.postValue(true)
         val response = movieRepository.getListMovie(
             page = page
@@ -41,5 +44,9 @@ class MovieViewModel(
                 loadingMLD.postValue(false)
             }
         }
+    }*/
+
+    fun getListMovie(): LiveData<PagingData<Movie>> {
+        return movieRepository.getListMovie().cachedIn(viewModelScope)
     }
 }

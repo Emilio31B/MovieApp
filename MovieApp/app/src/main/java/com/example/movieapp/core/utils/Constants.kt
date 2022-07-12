@@ -5,5 +5,6 @@ class Constants {
         const val username = "Admin"
         const val password = "Password*123"
         const val swipe_to_refresh_hide_time = 100L
+        const val number_pages = 20
     }
 }
