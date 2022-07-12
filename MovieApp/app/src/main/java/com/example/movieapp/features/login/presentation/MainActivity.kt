@@ -9,6 +9,7 @@ import com.example.movieapp.R
 import com.example.movieapp.core.utils.setEmptyErrorMessage
 import com.example.movieapp.core.utils.setTextWatcher
 import com.example.movieapp.core.utils.showToastMessage
+import com.example.movieapp.core.utils.toggleVisibility
 import com.example.movieapp.databinding.ActivityMainBinding
 import com.example.movieapp.features.login.domain.LoginRequest
 import com.example.movieapp.features.movie.presentation.MovieActivity
@@ -38,7 +39,9 @@ class MainActivity : AppCompatActivity() {
             this.showToastMessage( it.ifEmpty { getString(R.string.general_error) } )
         }
 
-        viewModel.loadingLD.observe(this) { }
+        viewModel.loadingLD.observe(this) {
+            binding.progress.progressContainer.toggleVisibility(it)
+        }
 
         viewModel.loginLD.observe(this) {
             if(it != null && it.status) {

@@ -1,11 +1,19 @@
 package com.example.movieapp.core.utils
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.example.movieapp.BuildConfig
+import com.example.movieapp.R
 import com.google.android.material.textfield.TextInputLayout
+
 
 fun Context.showToastMessage(message: String) {
     Toast.makeText(
@@ -41,4 +49,14 @@ fun TextInputLayout.setTextWatcher() {
         }
 
     })
+}
+
+fun AppCompatImageView.setImgWithGlide(imgCode: String) {
+    Glide.with(this.context)
+        .applyDefaultRequestOptions(
+            RequestOptions()
+                .error(R.drawable.ic_movieapp_logo)
+        )
+        .load("${BuildConfig.BASE_URL_IMG}$imgCode")
+        .into(this)
 }
