@@ -12,7 +12,6 @@ import com.example.movieapp.databinding.ItemMovieBinding
 import com.example.movieapp.features.movie.domain.listmovie.Movie
 
 class ListMovieAdapter(
-    //private var listMovie: List<Movie>,
     private val itemMovieClickListener: ItemMovieListener
 ): PagingDataAdapter<Movie, ListMovieAdapter.DataViewHolder>(MovieComparator) {
 
@@ -33,14 +32,6 @@ class ListMovieAdapter(
         }
     }
 
-    /*override fun getItemCount(): Int {
-        return listMovie.size
-    }
-
-    fun setListMovie(list: List<Movie>) {
-        listMovie = list
-    }*/
-
     class DataViewHolder(private val view: ItemMovieBinding): RecyclerView.ViewHolder(view.root) {
         fun bind(movie: Movie) {
             with(view) {
@@ -49,19 +40,6 @@ class ListMovieAdapter(
             }
         }
     }
-    /*inner class DataViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemMovieBinding.bind(itemView)
-
-        fun bind(movie: Movie) {
-            with(binding) {
-                imgMovie.setImgWithGlide(movie.poster_path)
-                tvMovieName.text = movie.title
-            }
-            itemView.setOnClickListener {
-                itemMovieClickListener.onItemMovieClickListener(movie)
-            }
-        }
-    }*/
 
     object MovieComparator: DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {

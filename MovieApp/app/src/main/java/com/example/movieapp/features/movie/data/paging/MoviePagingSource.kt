@@ -1,4 +1,4 @@
-package com.example.movieapp.features.movie.data
+package com.example.movieapp.features.movie.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

@@ -45,9 +45,8 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
 
         setAdapter()
         observerLiveData()
-        setUpSwipeToRefresh()
+        setOnClick()
         getListMovie()
-        //viewModel.getListMovie()
     }
 
     private fun setAdapter() {
@@ -63,6 +62,11 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
             )
             adapter = movieAdapter
         }
+        viewModel.setAdapterStateListener(movieAdapter)
+    }
+
+    private fun setOnClick() {
+        binding.floatRetryButton.setOnClickListener { refreshListMovie() }
     }
 
     private fun getListMovie() {
@@ -74,86 +78,31 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
     }
 
     private fun observerLiveData() {
-        /*viewModel.errorLD.observe(viewLifecycleOwner) {
+        viewModel.errorLD.observe(viewLifecycleOwner) {
             context?.showToastMessage( it.ifEmpty { getString(R.string.general_error) } )
-            binding.errorListMovieState.toggleVisibility(true)
-            binding.listMovieRecyclerView.toggleVisibility(false)
-            binding.emptyListMovieState.toggleVisibility(false)
+            binding.floatRetryButton.toggleVisibility(true)
         }
 
         viewModel.loadingLD.observe(viewLifecycleOwner) {
             binding.progress.progressContainer.toggleVisibility(it)
-        }*/
+        }
 
-        observerAdapter()
-
-        /*viewModel.listMovieLD.observe(viewLifecycleOwner) {
-            if (it != null && it.results.isNotEmpty()) {
-                renderListMovie(it.results)
-            } else {
-                binding.emptyListMovieState.toggleVisibility(true)
-                binding.listMovieRecyclerView.toggleVisibility(false)
-                binding.errorListMovieState.toggleVisibility(false)
-            }
-        }*/
-    }
-
-    private fun observerAdapter() {
-        movieAdapter.addLoadStateListener { loadState ->
-            if(loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
-                binding.progress.progressContainer.toggleVisibility(true)
-            } else {
-                binding.progress.progressContainer.toggleVisibility(false)
-                val errorState = when {
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-
-                }
-
-                errorState?.let {
-                    context?.showToastMessage( it.error.message.toString().ifEmpty { getString(R.string.general_error) } )
-                    binding.errorListMovieState.toggleVisibility(true)
-                    binding.listMovieRecyclerView.toggleVisibility(false)
-                    binding.emptyListMovieState.toggleVisibility(false)
-                }
-            }
+        viewModel.emptyListMovieLD.observe(viewLifecycleOwner) {
+            binding.emptyListMovieState.toggleVisibility(it)
+            binding.listMovieRecyclerView.toggleVisibility(!it)
+            binding.floatRetryButton.toggleVisibility(it)
         }
     }
-
-    /*@SuppressLint("NotifyDataSetChanged")
-    private fun renderListMovie(list: List<Movie>) {
-        movieAdapter.apply {
-            setListMovie(list)
-            notifyDataSetChanged()
-        }
-    }*/
 
     override fun onItemMovieClickListener(movie: Movie) {
-        findNavController().navigate(R.id.movieDescriptionFragment)
-    }
-
-    private fun setUpSwipeToRefresh() {
-        binding.strRoot.apply {
-            setColorSchemeResources(R.color.teal_700)
-            setOnRefreshListener {
-                //renderListMovie(emptyList())
-                refreshListMovie()
-                lifecycleScope.launch {
-                    delay(Constants.swipe_to_refresh_hide_time)
-                    binding.strRoot.isRefreshing = false
-                }
-            }
-        }
+        findNavController().navigate(ListMovieFragmentDirections.actionListMovieFragmentToMovieDetailFragment())
     }
 
     private fun refreshListMovie() {
-        //viewModel.getListMovie()
-        getListMovie()
+        movieAdapter.retry()
         binding.emptyListMovieState.toggleVisibility(false)
         binding.listMovieRecyclerView.toggleVisibility(true)
-        binding.errorListMovieState.toggleVisibility(false)
+        binding.floatRetryButton.toggleVisibility(false)
     }
 
 }

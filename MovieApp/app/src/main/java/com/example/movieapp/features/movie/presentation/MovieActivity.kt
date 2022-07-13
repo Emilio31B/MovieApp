@@ -18,7 +18,7 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+        //supportActionBar?.hide()
 
         setUpNavigation()
 
