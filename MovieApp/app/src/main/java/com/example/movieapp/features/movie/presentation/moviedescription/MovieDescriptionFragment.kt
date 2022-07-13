@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDescriptionBinding
 
@@ -24,6 +26,14 @@ class MovieDescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        onBackPressed()
     }
 
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().popBackStack()
+        }
+    }
 }

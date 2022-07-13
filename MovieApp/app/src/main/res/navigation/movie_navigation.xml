@@ -10,7 +10,11 @@
         android:id="@+id/listMovieFragment"
         android:name="com.example.movieapp.features.movie.presentation.listmovie.ListMovieFragment"
         android:label="@string/list_movie_label"
-        tools:layout="@layout/fragment_list_movie" />
+        tools:layout="@layout/fragment_list_movie">
+        <action
+            android:id="@+id/action_listMovieFragment_to_movieDetailFragment"
+            app:destination="@id/movieDescriptionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/movieDescriptionFragment"
