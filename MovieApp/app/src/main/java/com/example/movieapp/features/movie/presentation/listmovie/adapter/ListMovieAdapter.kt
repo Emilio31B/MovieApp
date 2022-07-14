@@ -25,10 +25,12 @@ class ListMovieAdapter(
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        val movie = getItem(position)!!
-        holder.bind(movie)
-        holder.itemView.setOnClickListener {
-            itemMovieClickListener.onItemMovieClickListener(movie)
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie)
+            holder.itemView.setOnClickListener {
+                itemMovieClickListener.onItemMovieClickListener(movie)
+            }
         }
     }
 

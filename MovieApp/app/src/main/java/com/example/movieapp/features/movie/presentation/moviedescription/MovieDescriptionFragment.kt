@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
@@ -77,8 +78,13 @@ class MovieDescriptionFragment : Fragment() {
 
 
     private fun onBackPressed() {
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().popBackStack()
-        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(isEnabled) {
+                    isEnabled = false
+                    findNavController().popBackStack()
+                }
+            }
+        })
     }
 }
