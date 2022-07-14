@@ -5,11 +5,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.example.movieapp.BuildConfig
+import com.example.movieapp.core.infra.NetworkResponse
 import com.example.movieapp.core.infra.SafeCallInterface
 import com.example.movieapp.core.network.NetworkServices
 import com.example.movieapp.core.utils.Constants
 import com.example.movieapp.features.movie.data.paging.MoviePagingSource
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 
 class MovieRepositoryImpl(
     private val safeCall: SafeCallInterface,
@@ -27,5 +29,12 @@ class MovieRepositoryImpl(
             },
             initialKey = 1
         ).liveData
+    }
+
+    override suspend fun getMovieDescription(movieId: Int) = safeCall.makeCall {
+        api.getMovieDescription(
+            movieId,
+            BuildConfig.API_KEY
+        )
     }
 }

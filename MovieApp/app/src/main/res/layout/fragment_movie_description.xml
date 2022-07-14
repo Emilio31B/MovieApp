@@ -7,6 +7,7 @@
     tools:context=".features.movie.presentation.moviedescription.MovieDescriptionFragment">
 
     <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,5 +65,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/progress_container_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

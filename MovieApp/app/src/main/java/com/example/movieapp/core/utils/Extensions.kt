@@ -60,3 +60,7 @@ fun AppCompatImageView.setImgWithGlide(imgCode: String) {
         .load("${BuildConfig.BASE_URL_IMG}$imgCode")
         .into(this)
 }
+
+fun Double.toRatingFloat(): Float {
+    return (this.div(10) * 5).toFloat()
+}
