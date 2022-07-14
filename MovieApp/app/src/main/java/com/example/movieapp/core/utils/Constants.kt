@@ -6,5 +6,6 @@ class Constants {
         const val password = "Password*123"
         const val number_pages = 20
         const val extra_data = "extra_data"
+        const val STARTER_PAGE = 1
     }
 }

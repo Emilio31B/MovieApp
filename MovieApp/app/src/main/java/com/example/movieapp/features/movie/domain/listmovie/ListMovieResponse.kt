@@ -1,5 +1,7 @@
 package com.example.movieapp.features.movie.domain.listmovie
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.movieapp.features.movie.domain.moviedescription.Movie
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
