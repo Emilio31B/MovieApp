@@ -6,7 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 
 @Dao
 interface MovieDao {

@@ -10,7 +10,7 @@ import com.example.movieapp.core.network.NetworkServices
 import com.example.movieapp.core.utils.Constants
 import com.example.movieapp.features.movie.data.db.MovieDatabase
 import com.example.movieapp.features.movie.data.db.RemoteKey
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 import retrofit2.HttpException
 import java.io.IOException
 

@@ -30,12 +30,15 @@ class MovieRepositoryImpl(
                 enablePlaceholders = false,
                 initialLoadSize = 2
             ),
-            remoteMediator = MovieMediator(
+            //Set mediator when room integration is done
+            /*remoteMediator = MovieMediator(
                 api,
                 database
-            ),
+            ),*/
             pagingSourceFactory = {
-                database.movieDao().getMovies()
+                MoviePagingSource(api)
+                //Get data from database when room integration is done
+                //database.movieDao().getMovies()
             },
             initialKey = 1
         ).liveData

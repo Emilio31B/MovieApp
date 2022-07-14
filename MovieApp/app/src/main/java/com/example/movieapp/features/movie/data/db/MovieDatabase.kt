@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.movieapp.features.movie.data.db.dao.MovieDao
 import com.example.movieapp.features.movie.data.db.dao.RemoteKeyDao
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 
 @Database(
     entities = [Movie::class, RemoteKey::class],

@@ -68,11 +68,11 @@ class MovieDescriptionFragment : Fragment() {
 
     private fun setMovieDescription(movie: Movie) {
         binding.apply {
-            posterMovie.setImgWithGlide(movie.poster_path)
-            tvTitle.text = movie.title
-            ratingMovie.rating = movie.vote_average.toRatingFloat()
-            tvReleaseDate.text = movie.release_date
-            tvOverview.text = movie.overview
+            posterMovie.setImgWithGlide(movie.poster_path ?: "")
+            tvTitle.text = movie.title ?: ""
+            ratingMovie.rating = movie.vote_average?.toRatingFloat() ?: 0f
+            tvReleaseDate.text = movie.release_date ?: ""
+            tvOverview.text = movie.overview ?: ""
         }
     }
 
