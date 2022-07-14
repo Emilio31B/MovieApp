@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieapp.BuildConfig
 import com.example.movieapp.core.network.NetworkServices
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 
 class MoviePagingSource(private val api: NetworkServices): PagingSource<Int, Movie>() {
 
