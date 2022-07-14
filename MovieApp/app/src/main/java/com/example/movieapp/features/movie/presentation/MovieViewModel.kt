@@ -10,7 +10,7 @@ import androidx.paging.cachedIn
 import com.example.movieapp.core.infra.NetworkResponse
 import com.example.movieapp.features.movie.data.IMovieRepository
 import com.example.movieapp.features.movie.domain.listmovie.ListMovieResponse
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 import com.example.movieapp.features.movie.presentation.listmovie.adapter.ListMovieAdapter
 import kotlinx.coroutines.launch
 
@@ -29,6 +29,10 @@ class MovieViewModel(
     private val errorMLD: MutableLiveData<String> = MutableLiveData()
     val errorLD: LiveData<String>
         get() = errorMLD
+
+    private val movieDescMLD: MutableLiveData<Movie?> = MutableLiveData()
+    val movieDescLD: LiveData<Movie?>
+        get() = movieDescMLD
 
     fun getListMovie(): LiveData<PagingData<Movie>> {
         return movieRepository.getListMovie().cachedIn(viewModelScope)
@@ -54,6 +58,24 @@ class MovieViewModel(
                 errorState?.let {
                     errorMLD.postValue(it.error.message ?: "")
                 }
+            }
+        }
+    }
+
+    fun getMovieDescription(movieId: Int) = viewModelScope.launch {
+        loadingMLD.postValue(true)
+        val response = movieRepository.getMovieDescription(
+            movieId = movieId
+        )
+
+        when(response) {
+            is NetworkResponse.Success -> {
+                movieDescMLD.postValue(response.data)
+                loadingMLD.postValue(false)
+            }
+            is NetworkResponse.Error -> {
+                errorMLD.postValue(response.exception.message ?: "")
+                loadingMLD.postValue(false)
             }
         }
     }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.core.utils.setImgWithGlide
 import com.example.movieapp.databinding.ItemMovieBinding
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 
 class ListMovieAdapter(
     private val itemMovieClickListener: ItemMovieListener
@@ -25,10 +25,12 @@ class ListMovieAdapter(
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        val movie = getItem(position)!!
-        holder.bind(movie)
-        holder.itemView.setOnClickListener {
-            itemMovieClickListener.onItemMovieClickListener(movie)
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie)
+            holder.itemView.setOnClickListener {
+                itemMovieClickListener.onItemMovieClickListener(movie)
+            }
         }
     }
 
@@ -36,7 +38,7 @@ class ListMovieAdapter(
         fun bind(movie: Movie) {
             with(view) {
                 imgMovie.setImgWithGlide(movie.poster_path ?: "")
-                tvMovieName.text = movie.original_title
+                tvMovieName.text = movie.title
             }
         }
     }

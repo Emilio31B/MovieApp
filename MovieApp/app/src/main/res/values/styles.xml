@@ -70,4 +70,50 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="MovieDescriptionPoster">
+        <item name="android:layout_width">120sp</item>
+        <item name="android:layout_height">200sp</item>
+    </style>
+
+    <style name="MovieDescriptionRating">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:numStars">5</item>
+    </style>
+
+    <style name="MovieDescriptionTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">8sp</item>
+        <item name="android:layout_marginStart">15sp</item>
+        <item name="android:layout_marginEnd">15sp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MovieDescriptionOverview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">8sp</item>
+        <item name="android:layout_marginStart">15sp</item>
+        <item name="android:layout_marginEnd">15sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:justificationMode">inter_word</item>
+    </style>
+
+    <style name="MovieDescriptionReleaseDate">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">8sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/teal_700</item>
+    </style>
+
 </resources>

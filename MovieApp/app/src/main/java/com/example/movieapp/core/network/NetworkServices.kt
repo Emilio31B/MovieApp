@@ -1,11 +1,9 @@
 package com.example.movieapp.core.network
 
 import com.example.movieapp.features.movie.domain.listmovie.ListMovieResponse
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface NetworkServices {
 
@@ -18,4 +16,10 @@ interface NetworkServices {
         @Query("page") page: Int,
         @Query("api_key") apiKey: String
     ): Response<ListMovieResponse>
+
+    @GET("/3/movie/{id}?")
+    suspend fun getMovieDescription(
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String
+    ): Response<Movie>
 }

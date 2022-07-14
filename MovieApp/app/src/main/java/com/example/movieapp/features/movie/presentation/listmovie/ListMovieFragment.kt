@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,7 +17,7 @@ import com.example.movieapp.core.utils.Constants
 import com.example.movieapp.core.utils.showToastMessage
 import com.example.movieapp.core.utils.toggleVisibility
 import com.example.movieapp.databinding.FragmentListMovieBinding
-import com.example.movieapp.features.movie.domain.listmovie.Movie
+import com.example.movieapp.features.movie.domain.moviedescription.Movie
 import com.example.movieapp.features.movie.presentation.MovieViewModel
 import com.example.movieapp.features.movie.presentation.listmovie.adapter.ItemMovieListener
 import com.example.movieapp.features.movie.presentation.listmovie.adapter.ListMovieAdapter
@@ -95,7 +96,16 @@ class ListMovieFragment : Fragment(), ItemMovieListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        findNavController().navigate(ListMovieFragmentDirections.actionListMovieFragmentToMovieDetailFragment())
+        val navBuilder = NavOptions.Builder()
+        navBuilder
+            .setEnterAnim(R.anim.slide_in)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.slide_out)
+        val bundle = Bundle()
+        bundle.putSerializable(Constants.extra_data, movie)
+        findNavController().navigate(
+            R.id.movieDescriptionFragment, bundle, navBuilder.build())
     }
 
     private fun refreshListMovie() {
